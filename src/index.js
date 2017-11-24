@@ -31,6 +31,7 @@ type Props = {
   componentWrapperStyle?: StyleObj,
   overlayStyle?: StyleObj,
   tooltipContainerStyle?: StyleObj,
+  innerContainerStyle?: StyleObj,
   labelContainerStyle?: StyleObj,
   labelSeparatorColor: string,
   labelStyle?: StyleObj,
@@ -77,6 +78,7 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
     componentWrapperStyle: ViewPropTypes.style,
     overlayStyle: ViewPropTypes.style,
     tooltipContainerStyle: ViewPropTypes.style,
+    innerContainerStyle: ViewPropTypes.style,
     labelContainerStyle: ViewPropTypes.style,
     labelSeparatorColor: PropTypes.string,
     labelStyle: Text.propTypes.style,
@@ -326,7 +328,7 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
               >
                 <View
                   onLayout={this.onInnerContainerLayout}
-                  style={styles.innerContainer}
+                  style={[styles.innerContainer, this.props.innerContainerStyle]}
                 >
                   {triangleUp}
                   <View style={[
@@ -455,7 +457,7 @@ const styles = StyleSheet.create({
   },
   tooltipContainer: {
     backgroundColor: 'transparent',
-    position: 'absolute',
+    position: 'absolute'
   },
   triangleDown: {
     width: 10,
@@ -486,7 +488,7 @@ const styles = StyleSheet.create({
     borderLeftColor: 'transparent',
   },
   button: {
-    flex: 1,
+    flex: 1
   },
   allItemContainer: {
     borderRadius: 5,
