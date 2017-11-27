@@ -27,6 +27,7 @@ const window = Dimensions.get('window');
 type Props = {
   buttonComponent: React.Node,
   buttonComponentExpandRatio: number,
+  headerComponent: React.Node,
   items: $ReadOnlyArray<{ +label: Label, onPress: () => void }>,
   componentWrapperStyle?: StyleObj,
   overlayStyle?: StyleObj,
@@ -71,6 +72,7 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
   static propTypes = {
     buttonComponent: PropTypes.node.isRequired,
     buttonComponentExpandRatio: PropTypes.number,
+    headerComponent: PropTypes.node.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
       label: labelPropType.isRequired,
       onPress: PropTypes.func.isRequired,
@@ -335,6 +337,7 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
                     styles.allItemContainer,
                     this.props.tooltipContainerStyle,
                   ]}>
+                    {this.props.headerComponent}
                     {items}
                   </View>
                   {triangleDown}
