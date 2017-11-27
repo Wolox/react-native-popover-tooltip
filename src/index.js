@@ -183,14 +183,14 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
         ? pageY - tooltipContainerHeight - 20
         : pageY + tooltipContainerHeight - 20;
       let tooltipTriangleDown = this.state.tooltipTriangleDown;
-      if (pageY - tooltipContainerHeight - 20 < 0) {
-        tooltipContainerY_final = pageY + height + 20;
-        tooltipTriangleDown = false;
-      }
-      if (pageY + tooltipContainerHeight + 80 > window.height) {
-        tooltipContainerY_final = pageY - tooltipContainerHeight - 20;
-        tooltipTriangleDown = true;
-      }
+      // if (pageY - tooltipContainerHeight - 20 < 0) {
+      //   tooltipContainerY_final = pageY + height + 20;
+      //   tooltipTriangleDown = false;
+      // }
+      // if (pageY + tooltipContainerHeight + 80 > window.height) {
+      //   tooltipContainerY_final = pageY - tooltipContainerHeight - 20;
+      //   tooltipTriangleDown = true;
+      // }
       const tooltipContainerX = this.state.tooltipContainerScale.interpolate({
         inputRange: [0, 1],
         outputRange: [tooltipContainerX_final, tooltipContainerX_final],
