@@ -27,10 +27,12 @@ const window = Dimensions.get('window');
 type Props = {
   buttonComponent: React.Node,
   buttonComponentExpandRatio: number,
+  headerComponent: React.Node,
   items: $ReadOnlyArray<{ +label: Label, onPress: () => void }>,
   componentWrapperStyle?: StyleObj,
   overlayStyle?: StyleObj,
   tooltipContainerStyle?: StyleObj,
+  innerContainerStyle?: StyleObj,
   labelContainerStyle?: StyleObj,
   labelSeparatorColor: string,
   labelStyle?: StyleObj,
@@ -70,6 +72,7 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
   static propTypes = {
     buttonComponent: PropTypes.node.isRequired,
     buttonComponentExpandRatio: PropTypes.number,
+    headerComponent: PropTypes.node.isRequired,
     items: PropTypes.arrayOf(PropTypes.shape({
       label: labelPropType.isRequired,
       onPress: PropTypes.func.isRequired,
@@ -77,6 +80,7 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
     componentWrapperStyle: ViewPropTypes.style,
     overlayStyle: ViewPropTypes.style,
     tooltipContainerStyle: ViewPropTypes.style,
+    innerContainerStyle: ViewPropTypes.style,
     labelContainerStyle: ViewPropTypes.style,
     labelSeparatorColor: PropTypes.string,
     labelStyle: Text.propTypes.style,
@@ -179,14 +183,14 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
         ? pageY - tooltipContainerHeight - 20
         : pageY + tooltipContainerHeight - 20;
       let tooltipTriangleDown = this.state.tooltipTriangleDown;
-      if (pageY - tooltipContainerHeight - 20 < 0) {
-        tooltipContainerY_final = pageY + height + 20;
-        tooltipTriangleDown = false;
-      }
-      if (pageY + tooltipContainerHeight + 80 > window.height) {
-        tooltipContainerY_final = pageY - tooltipContainerHeight - 20;
-        tooltipTriangleDown = true;
-      }
+      // if (pageY - tooltipContainerHeight - 20 < 0) {
+      //   tooltipContainerY_final = pageY + height + 20;
+      //   tooltipTriangleDown = false;
+      // }
+      // if (pageY + tooltipContainerHeight + 80 > window.height) {
+      //   tooltipContainerY_final = pageY - tooltipContainerHeight - 20;
+      //   tooltipTriangleDown = true;
+      // }
       const tooltipContainerX = this.state.tooltipContainerScale.interpolate({
         inputRange: [0, 1],
         outputRange: [tooltipContainerX_final, tooltipContainerX_final],
@@ -326,13 +330,14 @@ class PopoverTooltip extends React.PureComponent<Props, State> {
               >
                 <View
                   onLayout={this.onInnerContainerLayout}
-                  style={styles.innerContainer}
+                  style={[styles.innerContainer, this.props.innerContainerStyle]}
                 >
                   {triangleUp}
                   <View style={[
                     styles.allItemContainer,
                     this.props.tooltipContainerStyle,
                   ]}>
+                    {this.props.headerComponent}
                     {items}
                   </View>
                   {triangleDown}
@@ -455,7 +460,7 @@ const styles = StyleSheet.create({
   },
   tooltipContainer: {
     backgroundColor: 'transparent',
-    position: 'absolute',
+    position: 'absolute'
   },
   triangleDown: {
     width: 10,
@@ -486,7 +491,7 @@ const styles = StyleSheet.create({
     borderLeftColor: 'transparent',
   },
   button: {
-    flex: 1,
+    flex: 1
   },
   allItemContainer: {
     borderRadius: 5,
